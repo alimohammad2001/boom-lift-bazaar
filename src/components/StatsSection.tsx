@@ -1,52 +1,67 @@
 
 import React from 'react';
-import { TrendingUp, Shield, Clock, Award } from 'lucide-react';
+import { Users, Globe, Award, TrendingUp } from 'lucide-react';
 
 const StatsSection = () => {
   const stats = [
     {
       icon: TrendingUp,
       number: "500+",
-      label: "Machines Delivered",
-      description: "Successfully exported to India"
+      label: "Machines Exported",
+      description: "Successfully delivered across India",
+      color: "bg-blue-500"
     },
     {
-      icon: Shield,
-      number: "100%",
-      label: "Quality Guaranteed",
-      description: "Thoroughly inspected equipment"
+      icon: Users,
+      number: "200+",
+      label: "Happy Customers",
+      description: "Satisfied construction companies",
+      color: "bg-green-500"
     },
     {
-      icon: Clock,
-      number: "15+",
-      label: "Years Experience",
-      description: "In construction equipment"
+      icon: Globe,
+      number: "25+",
+      label: "US Locations",
+      description: "Sourcing from major US yards",
+      color: "bg-purple-500"
     },
     {
       icon: Award,
       number: "98%",
-      label: "Customer Satisfaction",
-      description: "Happy customers across India"
+      label: "Success Rate",
+      description: "On-time delivery guarantee",
+      color: "bg-orange-500"
     }
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-20 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Trusted by Industry Leaders
+          </h2>
+          <p className="text-xl text-gray-600">
+            Numbers that speak for our commitment to excellence
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
-            <div key={index} className="text-center group">
-              <div className="inline-flex p-4 rounded-2xl bg-slate-100 group-hover:bg-primary/10 transition-colors duration-300 mb-4">
-                <stat.icon className="text-primary" size={32} />
-              </div>
-              <div className="text-3xl font-bold text-gray-900 mb-2">
-                {stat.number}
-              </div>
-              <div className="text-lg font-semibold text-gray-700 mb-1">
-                {stat.label}
-              </div>
-              <div className="text-sm text-gray-500">
-                {stat.description}
+            <div key={index} className="group">
+              <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 text-center h-full border border-gray-100">
+                <div className={`inline-flex p-4 rounded-2xl ${stat.color} mb-6`}>
+                  <stat.icon className="text-white" size={32} />
+                </div>
+                <div className="text-4xl font-bold text-gray-900 mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-xl font-semibold text-gray-700 mb-2">
+                  {stat.label}
+                </div>
+                <div className="text-sm text-gray-500">
+                  {stat.description}
+                </div>
               </div>
             </div>
           ))}
