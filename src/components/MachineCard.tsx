@@ -64,15 +64,27 @@ const MachineCard: React.FC<MachineCardProps> = ({ machine }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden group hover:shadow-md transition-all duration-300">
       {/* Image Gallery */}
-      <div className="relative h-64 overflow-hidden">
+      <div className="relative h-48 overflow-hidden">
         <img
           src={images[currentImageIndex]}
           alt={`${machine.manufacturer} ${machine.model}`}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
         
+        {/* Premium Listing Badge */}
+        <div className="absolute top-2 left-2">
+          <span className="bg-blue-600 text-white px-2 py-1 rounded text-xs font-medium">
+            Premium Listing
+          </span>
+        </div>
+        
+        {/* Favorite Button */}
+        <button className="absolute top-2 right-2 bg-white/90 text-gray-600 hover:text-red-500 p-1.5 rounded-full transition-colors">
+          <Heart size={14} />
+        </button>
+
         {/* Image Navigation */}
         {images.length > 1 && (
           <>
@@ -80,13 +92,13 @@ const MachineCard: React.FC<MachineCardProps> = ({ machine }) => {
               onClick={prevImage}
               className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
             >
-              <ChevronLeft size={16} />
+              <ChevronLeft size={14} />
             </button>
             <button
               onClick={nextImage}
               className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
             >
-              <ChevronRight size={16} />
+              <ChevronRight size={14} />
             </button>
             
             {/* Image Dots */}
@@ -94,7 +106,7 @@ const MachineCard: React.FC<MachineCardProps> = ({ machine }) => {
               {images.map((_, index) => (
                 <div
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-colors ${
+                  className={`w-1.5 h-1.5 rounded-full transition-colors ${
                     index === currentImageIndex ? 'bg-white' : 'bg-white/50'
                   }`}
                 />
@@ -102,77 +114,42 @@ const MachineCard: React.FC<MachineCardProps> = ({ machine }) => {
             </div>
           </>
         )}
-
-        {/* Status Badge */}
-        <div className="absolute top-3 left-3">
-          <span className={`px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(machine.status)}`}>
-            {machine.status}
-          </span>
-        </div>
-        
-        {/* Condition Badge */}
-        <div className="absolute top-3 right-3">
-          <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-sm font-medium">
-            {machine.condition}
-          </span>
-        </div>
-
-        {/* Favorite Button */}
-        <button className="absolute top-3 right-12 bg-white/90 text-gray-600 hover:text-red-500 p-2 rounded-full transition-colors">
-          <Heart size={16} />
-        </button>
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <div className="flex justify-between items-start mb-3">
-          <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors">
+      <div className="p-4">
+        <div className="mb-3">
+          <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-1">
             {machine.year} {machine.manufacturer} {machine.model}
           </h3>
-          <div className="text-2xl font-bold text-primary">
-            {formatPrice(machine.price)}
-          </div>
+          <p className="text-sm text-gray-600">{machine.location}</p>
         </div>
         
-        {/* Specs Grid */}
-        <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
-          <div className="flex items-center text-gray-600">
-            <Clock size={14} className="mr-2 text-gray-400" />
-            <span>{machine.hours.toLocaleString()} hrs</span>
-          </div>
-          <div className="flex items-center text-gray-600">
-            <ArrowUp size={14} className="mr-2 text-gray-400" />
-            <span>{machine.liftHeight}</span>
-          </div>
-          <div className="flex items-center text-gray-600">
-            <Calendar size={14} className="mr-2 text-gray-400" />
-            <span>{machine.year}</span>
-          </div>
-          <div className="flex items-center text-gray-600">
-            <MapPin size={14} className="mr-2 text-gray-400" />
-            <span>{machine.location}</span>
-          </div>
+        <div className="text-xl font-bold text-red-800 mb-3">
+          USD {formatPrice(machine.price).replace('$', '')}
+        </div>
+        
+        {/* Specs */}
+        <div className="space-y-1 mb-4 text-sm text-gray-600">
+          <div>Hours: {machine.hours.toLocaleString()}</div>
+          <div>Location: {machine.location}</div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2">
-          <Link
-            to={`/machine/${machine.id}`}
-            className="flex-1 bg-primary text-white py-2.5 px-4 rounded-lg hover:bg-primary/90 transition-colors text-center font-medium"
-          >
+        <div className="space-y-2">
+          <div className="flex gap-2">
+            <button className="flex-1 bg-blue-600 text-white py-2 px-3 rounded text-sm hover:bg-blue-700 transition-colors">
+              Apply for Financing
+            </button>
+            <button className="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition-colors">
+              <Phone size={14} />
+            </button>
+          </div>
+          <button className="w-full bg-red-800 text-white py-2 px-3 rounded text-sm hover:bg-red-900 transition-colors flex items-center justify-center gap-2">
+            <Eye size={14} />
             View Details
-          </Link>
-          <button className="bg-green-500 text-white px-4 py-2.5 rounded-lg hover:bg-green-600 transition-colors">
-            <Mail size={16} />
-          </button>
-          <button className="bg-blue-500 text-white px-4 py-2.5 rounded-lg hover:bg-blue-600 transition-colors">
-            <Phone size={16} />
           </button>
         </div>
-        
-        <button className="w-full mt-3 border-2 border-primary text-primary py-2.5 px-4 rounded-lg hover:bg-primary hover:text-white transition-colors font-medium">
-          Reserve Now
-        </button>
       </div>
     </div>
   );
