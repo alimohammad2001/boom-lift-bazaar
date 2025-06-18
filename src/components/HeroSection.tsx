@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { ArrowRight, Truck, Shield, Clock } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
@@ -23,10 +24,13 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center group">
+            <Link 
+              to="/inventory"
+              className="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center group"
+            >
               Browse Current Inventory
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-            </button>
+            </Link>
             <button className="border-2 border-white/30 hover:border-primary text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300">
               Get Custom Quote
             </button>
